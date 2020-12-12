@@ -1,6 +1,6 @@
 import {getRandomInteger, getRandomDataArr} from "../utils";
 
-const TIME_COEFFICIENT = 3600000;
+// const TIME_COEFFICIENT = 3600000;
 
 const eventTypes = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`,
   `Drive`, `Flight`, `Check-in`, `Sightseeing`, `Restaurant`];
@@ -73,9 +73,6 @@ const getRandomDate = () => {
   targetDate.setDate(targetDate.getDate() + diffValue);
 
   return targetDate;
-};
-
-const getDateFormat = (date) => {
 };
 
 const getRouteWaypointData = () => {
