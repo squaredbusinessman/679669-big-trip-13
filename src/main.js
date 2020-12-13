@@ -1,27 +1,41 @@
-import {createTripInfoTemplate} from "./view/trip-info";
-import {createMenuTemplate} from "./view/menu";
-import {createFilterTemplate} from "./view/filter";
-import {createSortingTemplate} from "./view/sorting";
+import {generateWaypoints} from "./mock/route-waypoint-data-mock";
+import {createTripInfoContainerTemplate} from "./view/trip-info-container";
+import {createTripInfoRouteTemplate} from "./view/trip-info-route";
+import {createTripCostTemplate} from "./view/trip-cost";
+import {createNavMenuTemplate} from "./view/nav-menu";
+import {createFilterTemplate} from "./view/event-tences-filter";
+import {createTripSortingTemplate} from "./view/trip-sorting";
+import {createEventForm} from "./view/event-form";
 import {createWaypointTemplate} from "./view/waypoint";
+
+const RENDER_EVENTS_COUNT = 20;
 
 const renderTemplate = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
 const tripMainElement = document.querySelector(`.trip-main`);
-// вставляем маршрут и стоимость
-renderTemplate(tripMainElement, createTripInfoTemplate(), `beforeend`);
-
-const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
-const tripControlsFirstChildHeader = tripControlsElement.querySelector(`h2`);
-// 1- меню 2- фильтры
-renderTemplate(tripControlsFirstChildHeader, createMenuTemplate(), `afterend`); // меню
-renderTemplate(tripControlsElement, createFilterTemplate(), `beforeend`);// фильтры
-
 const tripEventsElement = document.querySelector(`.trip-events`);
-// 1- сортировка 2- контент
-renderTemplate(tripEventsElement, createSortingTemplate(), `beforeend`);
-renderTemplate(tripEventsElement, createWaypointTemplate(), `beforeend`);
 
-// Скажу сразу это естественно не финальная модульность, и я буду еще бить их или даже создавать более мелкие структуры
-// импортировать в более крупные, а дальше уже в мэйн.жс
+renderTemplate(tripMainElement, createTripInfoContainerTemplate(), `afterbegin`);
+
+const tripInfoContainer = tripMainElement.querySelector(`.trip-info`);
+const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
+const [tripControlsFirstHeaderElement, tripControlsSecondHeaderElement] = tripControlsElement.querySelectorAll(`h2`);
+
+renderTemplate(tripInfoContainer, createTripInfoRouteTemplate(), `beforeend`);
+renderTemplate(tripInfoContainer, createTripCostTemplate(), `beforeend`);
+renderTemplate(tripControlsFirstHeaderElement, createNavMenuTemplate(), `afterend`);
+renderTemplate(tripControlsSecondHeaderElement, createFilterTemplate(), `afterend`);
+renderTemplate(tripEventsElement, createTripSortingTemplate(), `beforeend`);
+renderTemplate(tripEventsElement, createEventForm(), `beforeend`);
+
+const tripEventsContainerElement = document.querySelector(`.trip-events__list`);
+
+const events = generateWaypoints(RENDER_EVENTS_COUNT);
+
+for (let i = 0; i < events.length; i++) {
+  renderTemplate(tripEventsContainerElement, createWaypointTemplate(events[i]), `beforeend`);
+}
+
+
