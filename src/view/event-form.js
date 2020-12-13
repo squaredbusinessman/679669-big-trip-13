@@ -1,3 +1,19 @@
+import {eventTypes, eventDestinations} from "../mock/route-waypoint-data-mock";
+import {renderWaypointOffers} from "./waypoint-offers";
+import {renderWaypointTypesList} from "./waypoint-types";
+
+const renderDestinationOptins = (destinations) => {
+  return destinations.map((destination) => {
+    return `<option value="${destination}"></option>`;
+  });
+};
+
+const renderPhotos = (photos) => {
+  return photos.map((photo) => {
+    return `<img class="event__photo" src="${photo}" alt="Event photo">`;
+  });
+};
+
 export const createEventForm = () => {
   return `<form class="trip-events__item  event  event--edit" action="#" method="post">
   <header class="event__header">

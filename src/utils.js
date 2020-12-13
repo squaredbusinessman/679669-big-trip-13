@@ -10,4 +10,26 @@ const getRandomDataArr = (arr) => {
   return arr[getRandomInteger(0, arr.length - 1)];
 };
 
-export {getRandomInteger, getRandomDataArr};
+const renderTemplate = (container, template, place) => {
+  container.insertAdjacentHTML(place, template);
+};
+
+const getRandomStartDate = () => {
+  const year = getRandomInteger(2020, 2021);
+  const month = getRandomInteger(1, 12);
+  const day = getRandomInteger(1, 31);
+  const hour = getRandomInteger(0, 23);
+  const minutes = getRandomInteger(0, 59);
+
+  return new Date(year, month, day, hour, minutes);
+};
+
+const getEndDate = (startDate) => {
+  return new Date(Date.parse(startDate) + getRandomInteger(1, 3) * 3600000);
+};
+
+const getDateDiffer = (startDate, endDate) => {
+  return endDate - startDate;
+};
+
+export {getRandomInteger, getRandomDataArr, getRandomStartDate, getEndDate, getDateDiffer, renderTemplate};

@@ -1,13 +1,11 @@
-import {getRandomInteger, getRandomDataArr} from "../utils";
+import {getRandomInteger, getRandomDataArr, getEndDate, getDateDiffer, getRandomStartDate} from "../utils";
 
-// const TIME_COEFFICIENT = 3600000;
-
-const eventTypes = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`,
+export const eventTypes = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`,
   `Drive`, `Flight`, `Check-in`, `Sightseeing`, `Restaurant`];
 
-const eventDestinations = [`Amsterdam`, `Chamonix`, `Geneva`, `Vladivostok`, `New York`, `London`, `Paris`, `Bruxelles`];
+export const eventDestinations = [`Amsterdam`, `Chamonix`, `Geneva`, `Vladivostok`, `New York`, `London`, `Paris`, `Bruxelles`];
 
-const infoDescriptions = [
+export const infoDescriptions = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
   `Cras aliquet varius magna, non porta ligula feugiat eget.`,
   `Fusce tristique felis at fermentum pharetra.`,
@@ -22,7 +20,7 @@ const infoDescriptions = [
 ];
 
 
-const offers = [
+export const offers = [
   {
     title: `Add luggage`,
     price: 30,
@@ -65,18 +63,10 @@ const generateRandomPhoto = () => {
   return new Array(getRandomInteger(1, 4)).fill().map(generatePhoto);
 };
 
-const getRandomDate = () => {
-  const targetDate = new Date();
-  const sign = Math.random() > 0.5 ? 1 : -1;
-  const diffValue = sign * getRandomInteger(0, 8);
-
-  targetDate.setDate(targetDate.getDate() + diffValue);
-
-  return targetDate;
-};
-
 const getRouteWaypointData = () => {
   const hasOffers = Math.random() > 0.5;
+  const startDate = getRandomStartDate();
+  const endDate = getEndDate(startDate);
 
   return {
     eventType: getRandomDataArr(eventTypes),
@@ -87,8 +77,9 @@ const getRouteWaypointData = () => {
       photo: generateRandomPhoto(),
     },
     eventTime: {
-      start: getRandomDate(),
-      end: getRandomDate(),
+      start: startDate,
+      end: endDate,
+      differ: getDateDiffer(startDate, endDate),
     },
     isFavorite: Boolean(getRandomInteger(0, 1)),
     price: getRandomInteger(10, 1000)

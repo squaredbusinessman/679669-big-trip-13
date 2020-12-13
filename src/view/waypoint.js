@@ -1,7 +1,7 @@
 import {renderWaypointOffers} from "./waypoint-offers";
 
 export const createWaypointTemplate = (event) => {
-  const {eventType, eventDestination, eventOffers, price} = event;
+  const {eventType, eventDestination, eventOffers, price, eventTime} = event;
   const waypointOffers = eventOffers !== null ? renderWaypointOffers(eventOffers) : ``;
   return `<li class="trip-events__item">
               <div class="event">
@@ -12,11 +12,11 @@ export const createWaypointTemplate = (event) => {
                 <h3 class="event__title">${eventType} to ${eventDestination}</h3>
                 <div class="event__schedule">
                   <p class="event__time">
-                    <time class="event__start-time" datetime="2019-03-18T12:25">12:25</time>
+                    <time class="event__start-time" datetime="2019-03-18T12:25">${eventTime.start}</time>
                     &mdash;
-                    <time class="event__end-time" datetime="2019-03-18T13:35">13:35</time>
+                    <time class="event__end-time" datetime="2019-03-18T13:35">${eventTime.end}</time>
                   </p>
-                  <p class="event__duration">1H 10M</p>
+                  <p class="event__duration">${eventTime.differ}</p>
                 </div>
                 <p class="event__price">
                   &euro;&nbsp;<span class="event__price-value">${price}</span>

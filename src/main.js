@@ -7,12 +7,9 @@ import {createFilterTemplate} from "./view/event-tences-filter";
 import {createTripSortingTemplate} from "./view/trip-sorting";
 import {createEventForm} from "./view/event-form";
 import {createWaypointTemplate} from "./view/waypoint";
+import {renderTemplate} from "./utils";
 
 const RENDER_EVENTS_COUNT = 20;
-
-const renderTemplate = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const tripEventsElement = document.querySelector(`.trip-events`);
@@ -34,8 +31,8 @@ const tripEventsContainerElement = document.querySelector(`.trip-events__list`);
 
 const events = generateWaypoints(RENDER_EVENTS_COUNT);
 
-for (let i = 0; i < events.length; i++) {
+events.forEach(() => {
   renderTemplate(tripEventsContainerElement, createWaypointTemplate(events[i]), `beforeend`);
-}
+});
 
 
