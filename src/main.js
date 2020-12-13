@@ -32,7 +32,7 @@ const tripEventsContainerElement = document.querySelector(`.trip-events__list`);
 const events = generateWaypoints(RENDER_EVENTS_COUNT);
 
 events.forEach(() => {
-  renderTemplate(tripEventsContainerElement, createWaypointTemplate(events[i]), `beforeend`);
+  renderTemplate(tripEventsContainerElement, createWaypointTemplate(events), `beforeend`);
 });
 
 
