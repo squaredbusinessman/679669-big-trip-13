@@ -32,4 +32,17 @@ const getDateDiffer = (startDate, endDate) => {
   return endDate - startDate;
 };
 
-export {getRandomInteger, getRandomDataArr, getRandomStartDate, getEndDate, getDateDiffer, renderTemplate};
+const renderDestinationOptions = (destinations) => {
+  return destinations.map((destination) => {
+    return `<option value="${destination}"></option>`;
+  })
+    .join(`\n`);
+};
+
+const renderPhotos = (photos) => {
+  return photos.map((photo) => {
+    return `<img class="event__photo" src="${photo}" alt="Event photo">`;
+  });
+};
+
+export {getRandomInteger, getRandomDataArr, getRandomStartDate, getEndDate, getDateDiffer, renderTemplate, renderDestinationOptions, renderPhotos};
