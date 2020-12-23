@@ -1,9 +1,3 @@
-import {eventTypes, eventDestinations} from "../mock/route-waypoint-data-mock";
-import {renderWaypointOffers} from "./waypoint-offers";
-import {renderWaypointTypesList} from "./waypoint-types";
-import {renderPhotos} from "../utils";
-import {renderDestinationOptions} from "../utils";
-
 export const createEventForm = () => {
   return `<form class="trip-events__item  event  event--edit" action="#" method="post">
   <header class="event__header">

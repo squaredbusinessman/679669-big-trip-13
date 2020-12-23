@@ -1,7 +1,7 @@
-import {getDateDiffer, getEndDate, getRandomDataArr, getRandomInteger, getRandomStartDate} from "../utils";
-import {eventDestinations, eventTypes, infoDescriptions, offers} from "./route-waypoint-data-mock";
+import {getRandomDataArr, getRandomInteger} from "../utils";
+import {infoDescriptions} from "./route-waypoint-data";
 
-const generateRandomDescription = () => {
+export const generateRandomDescription = () => {
   const count = getRandomInteger(1, 5);
   let items = ``;
 
@@ -13,7 +13,7 @@ const generateRandomDescription = () => {
   return items;
 };
 
-const generateRandomPhoto = () => {
+export const generateRandomPhoto = () => {
   const generatePhoto = () => {
 
     return `http://picsum.photos/248/152?r=` + getRandomInteger(0, 999);
@@ -22,29 +22,41 @@ const generateRandomPhoto = () => {
   return new Array(getRandomInteger(1, 4)).fill().map(generatePhoto);
 };
 
-const getRouteWaypointData = () => {
-  const hasOffers = Math.random() > 0.5;
-  const startDate = getRandomStartDate();
-  const endDate = getEndDate(startDate);
+export const getRandomStartDate = () => {
+  const year = getRandomInteger(2020, 2021);
+  const month = getRandomInteger(1, 12);
+  const day = getRandomInteger(1, 31);
+  const hour = getRandomInteger(0, 23);
+  const minutes = getRandomInteger(0, 59);
 
-  return {
-    eventType: getRandomDataArr(eventTypes),
-    eventDestination: getRandomDataArr(eventDestinations),
-    eventOffers: hasOffers === true ? offers : ``,
-    destinationInfo: {
-      description: generateRandomDescription(),
-      photo: generateRandomPhoto(),
-    },
-    eventTime: {
-      start: startDate,
-      end: endDate,
-      differ: getDateDiffer(startDate, endDate),
-    },
-    isFavorite: Boolean(getRandomInteger(0, 1)),
-    price: getRandomInteger(10, 1000)
-  };
+  return new Date(year, month, day, hour, minutes);
 };
 
-export const generateWaypoints = (count) => {
-  return new Array(count).fill(``).map(getRouteWaypointData);
+export const getEndDate = (startDate) => {
+  return new Date(Date.parse(startDate) + getRandomInteger(1, 3) * 3600000);
+};
+
+export const getDateDiffer = (startDate, endDate) => {
+  return endDate - startDate;
+};
+
+export const renderDestinationOptions = (destinations) => {
+  return destinations.map((destination) => {
+    return `<option value="${destination}"></option>`;
+  })
+    .join(`\n`);
+};
+
+export const getRandomOffers = (offers) => {
+  const offersCount = getRandomInteger(1, 5);
+  const randomOffers = [];
+
+  for (let i = 0; i < offersCount; i++) {
+    const offer = getRandomDataArr(offers);
+    if (randomOffers.indexOf(offer) === -1) {
+      randomOffers.push(offer);
+    }
+  }
+
+  return randomOffers;
 };

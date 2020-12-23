@@ -1,8 +1,10 @@
-import {renderWaypointOffers} from "./waypoint-offers";
+import {renderWaypointOffers} from "./trip-event-offers";
+import {createElement} from "../utils";
 
-export const createWaypointTemplate = (event) => {
+const createWaypointTemplate = (event) => {
   const {eventType, eventDestination, eventOffers, price, eventTime} = event;
   const waypointOffers = eventOffers !== null ? renderWaypointOffers(eventOffers) : ``;
+
   return `<li class="trip-events__item">
               <div class="event">
                 <time class="event__date" datetime="2019-03-18">MAR 18</time>
@@ -37,3 +39,26 @@ export const createWaypointTemplate = (event) => {
               </div>
             </li>`;
 };
+
+export default class TripWaypoint {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+
+  getTemplate() {
+    return createWaypointTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
