@@ -1,16 +1,16 @@
 import {createElement} from "../utils";
 
-const createTripEventsContainer = () => {
-  return `<ul class="trip-events__list"></ul>`;
+const renderHeaderContainer = () => {
+  return `<section class="trip-main__trip-info"></section>`;
 };
 
-export default class TripEventsContainer {
+export default class HeaderContainer {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return createTripEventsContainer();
+    return renderHeaderContainer();
   }
 
   getElement() {

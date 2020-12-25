@@ -1,4 +1,4 @@
-export const renderWaypointTypesList = (types) => {
+export const renderTripEventTypesList = (types) => {
   return types.map((type) => {
     return (
       `<div class="event__type-item">
