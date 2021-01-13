@@ -17,12 +17,24 @@ export const infoDescriptions = [
   `In rutrum ac purus sit amet tempus.`
 ];
 
+export const eventTypeActionsMap = {
+  'Taxi': `to`,
+  'Bus': `to`,
+  'Train': `to`,
+  'Ship': `to`,
+  'Transport': `to`,
+  'Drive': `to`,
+  'Flight': `to`,
+  'Check-in': `in`,
+  'Sightseeing': `in`,
+  'Restaurant': `in`,
+};
 
 export const offers = [
   {
     id: `luggage`,
     title: `Add luggage`,
-    price: 30,
+    price: 38,
   },
   {
     id: `comfort`,

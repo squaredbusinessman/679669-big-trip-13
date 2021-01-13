@@ -7,7 +7,7 @@ export const getRandomInteger = (a = 0, b = 1) => {
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
 
-export const getRandomDataArr = (arr) => {
+export const getRandomItemArr = (arr) => {
 
   return arr[getRandomInteger(0, arr.length - 1)];
 };
@@ -49,4 +49,18 @@ export const renderPhotos = (photos) => {
   return photos.map((photo) => {
     return `<img class="event__photo" src="${photo}" alt="Event photo">`;
   });
+};
+
+export const getSortedEvents = (events) => {
+  return events.slice().sort((a, b) => a.start - b.start);
+};
+
+export const getEventsDates = (events) => {
+  return events.map((event) => {
+    return new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
+  });
+};
+
+export const sortTripEvents = (events) => {
+  return events.slice().sort((a, b) => a.start - b.start);
 };

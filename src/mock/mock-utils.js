@@ -1,16 +1,16 @@
-import {getRandomDataArr, getRandomInteger} from "../utils";
-import {infoDescriptions} from "./route-waypoint-data";
+import {getRandomItemArr, getRandomInteger} from "../utils";
+import {infoDescriptions} from "./trip-events-mocks";
 
 export const generateRandomDescription = () => {
   const count = getRandomInteger(1, 5);
-  let items = ``;
+  let description = ``;
 
   for (let i = 0; i <= count; i++) {
 
-    items += infoDescriptions[i];
+    description += infoDescriptions[i];
   }
 
-  return items;
+  return description;
 };
 
 export const generateRandomPhoto = () => {
@@ -19,11 +19,11 @@ export const generateRandomPhoto = () => {
     return `http://picsum.photos/248/152?r=` + getRandomInteger(0, 999);
   };
 
-  return new Array(getRandomInteger(1, 4)).fill().map(generatePhoto);
+  return new Array(getRandomInteger(1, 4)).fill(``).map(generatePhoto);
 };
 
 export const getRandomStartDate = () => {
-  const year = getRandomInteger(2020, 2021);
+  const year = getRandomInteger(2020, 2022);
   const month = getRandomInteger(1, 12);
   const day = getRandomInteger(1, 31);
   const hour = getRandomInteger(0, 23);
@@ -52,11 +52,19 @@ export const getRandomOffers = (offers) => {
   const randomOffers = [];
 
   for (let i = 0; i < offersCount; i++) {
-    const offer = getRandomDataArr(offers);
+    const offer = getRandomItemArr(offers);
     if (randomOffers.indexOf(offer) === -1) {
       randomOffers.push(offer);
     }
   }
 
   return randomOffers;
+};
+
+export const parseDate = (date) => {
+  const receivedDate = date.getDate();
+  const receivedMonth = date.getMonth();
+  const receivedYear = date.getFullYear();
+
+  return Date.parse((new Date(receivedYear, receivedMonth, receivedDate)).toString());
 };
