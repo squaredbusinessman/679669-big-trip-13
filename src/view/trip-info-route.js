@@ -1,6 +1,7 @@
 import {MONTHS} from "../const";
-import {getEventsDates, sortTripEvents} from "../utils";
+import {sortTripEvents} from "../utils";
 import {createElement} from "../utils";
+import {getEventsDates} from "./get-days-and-dates";
 
 const MAXIMUM_CITIES_SHOWN = 3;
 
