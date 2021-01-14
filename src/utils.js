@@ -45,22 +45,6 @@ export const renderTemplate = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
-export const renderPhotos = (photos) => {
-  return photos.map((photo) => {
-    return `<img class="event__photo" src="${photo}" alt="Event photo">`;
-  });
-};
-
-export const getSortedEvents = (events) => {
-  return events.slice().sort((a, b) => a.start - b.start);
-};
-
-export const getEventsDates = (events) => {
-  return events.map((event) => {
-    return new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
-  });
-};
-
 export const sortTripEvents = (events) => {
   return events.slice().sort((a, b) => a.start - b.start);
 };
