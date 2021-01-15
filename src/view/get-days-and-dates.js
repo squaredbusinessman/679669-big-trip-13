@@ -1,6 +1,4 @@
 export const getEventsDates = (events) => {
-  // eslint-disable-next-line no-debugger
-  debugger;
   return events.map((event) => {
     return new Date(event.startTime.getFullYear(), event.startTime.getMonth(), event.startTime.getDate());
   });

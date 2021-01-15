@@ -20,7 +20,7 @@ export const createElement = (template) => { // позволяет получи�
   return newElement.firstChild;
 };
 
-export const renderElement = (container, element, place) => {
+export const renderElement = (container, element, place = RenderPositions.BEFOREEND) => {
   switch (place) {
 
     case RenderPositions.AFTERBEGIN:
@@ -41,8 +41,8 @@ export const renderElement = (container, element, place) => {
   }
 };
 
-export const renderTemplate = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
+export const renderTemplate = (container, template, position = RenderPositions.BEFOREEND) => {
+  container.insertAdjacentHTML(position, template);
 };
 
 export const sortTripEvents = (events) => {
