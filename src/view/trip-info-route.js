@@ -17,7 +17,7 @@ const getTripDates = (startDate, endDate) => {
   const endMonth = endDate.getMonth();
   const endDay = endDate.getDate();
   const sameMonthString = `${MONTHS[startMonth]} ${startDay} &nbsp;&mdash;&nbsp; ${endDay}`;
-  const differentMonthString = `${MONTHS[startMonth]} ${startDay} &nbsp;&mdash;&nbsp; ${endMonth} ${endDay}`;
+  const differentMonthString = `${MONTHS[startMonth]} ${startDay} &nbsp;&mdash;&nbsp; ${MONTHS[endMonth]} ${endDay}`;
   return startMonth === endMonth ? sameMonthString : differentMonthString;
 };
 
@@ -25,10 +25,10 @@ const renderTripRoute = (eventsList) => {
   const title = getTripRoute(eventsList);
   const tripDates = getEventsDates(eventsList).sort((a, b) => a - b);
   const tripDatesString = getTripDates(tripDates[0], tripDates[tripDates.length - 1]);
-  return `<div class="trip-info__main">
+  return (`<div class="trip-info__main">
             <h1 class="trip-info__title">${title}</h1>
             <p class="trip-info__dates">${tripDatesString}</p>
-          </div>`;
+          </div>`).trim();
 };
 
 export default class TripInfoRoute {

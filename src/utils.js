@@ -1,5 +1,3 @@
-import {RenderPositions} from "./const";
-
 export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -20,29 +18,27 @@ export const createElement = (template) => { // позволяет получи�
   return newElement.firstChild;
 };
 
-export const renderElement = (container, element, place = RenderPositions.BEFOREEND) => {
-  switch (place) {
+export const renderElement = (container, element, position = `append`) => {
+  const parentContainer = typeof container === `string` ? document.querySelector(container) : container;
 
-    case RenderPositions.AFTERBEGIN:
-      container.prepend(element);
+  switch (position) {
+    case `append`:
+      parentContainer.append(element);
       break;
-
-    case RenderPositions.AFTEREND:
-      container.after(element);
+    case `prepend`:
+      parentContainer.prepend(element);
       break;
-
-    case RenderPositions.BEFOREBEGIN:
-      container.before(element);
+    case `insertBefore`:
+      parentContainer.parentNode.insertBefore(element, parentContainer);
       break;
-
-    case RenderPositions.BEFOREEND:
-      container.append(element);
+    case `insertAfter`:
+      parentContainer.parentNode.insertBefore(element, parentContainer.nextSibling);
       break;
   }
 };
 
-export const renderTemplate = (container, template, position = RenderPositions.BEFOREEND) => {
-  container.insertAdjacentHTML(position, template);
+export const renderTemplate = (container, template) => {
+  container.append(template);
 };
 
 export const sortTripEvents = (events) => {

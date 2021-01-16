@@ -7,6 +7,6 @@ export const renderTripEventTypesList = (types) => {
         <label class="event__type-label event__type-label-${type.toLowerCase()}" for="event-type-${type}-1">${type}</label>
       </div>`
     );
-  })
+  }).trim()
     .join(`\n`);
 };

@@ -1,6 +1,6 @@
 // import {timeConvertToMs} from "../const";
 
-/* export const getTimeDiff = (start, end) => {
+export const getTimeDiff = (start, end) => {
   const diffInMs = end - start;
 
   const days = diffInMs / timeConvertToMs.DAY;
@@ -13,7 +13,7 @@
   const minutesString = minutes > 0 ? minutes + `M` : ``;
 
   return daysString + hoursString + minutesString;
-}; */
+};
 
 export const getEventTimeFormat = (time) => {
   const timeValueArr = Array.of(time.getHours(), time.getMinutes());

@@ -8,12 +8,12 @@ const renderTripDay = (dayObject) => {
   const monthValue = dateString.getMonth();
   const yearValue = dateString.getFullYear();
 
-  return `<li class="trip-days__item  day">
+  return (`<li class="trip-days__item  day">
               <div class="day__info">
                 <span class="day__counter">${counter}</span>
                 <time class="day__date" datetime="${yearValue}-${monthValue + 1}-${dateValue}">${MONTHS[monthValue]} ${dateValue}</time>
               </div>
-          </li>`;
+          </li>`).trim();
 };
 
 export default class TripDay {

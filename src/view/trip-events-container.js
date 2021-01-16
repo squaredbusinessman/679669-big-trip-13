@@ -1,7 +1,7 @@
 import {createElement} from "../utils";
 
 const createTripEventsContainer = () => {
-  return `<ul class="trip-events__list"></ul>`;
+  return (`<ul class="trip-events__list"></ul>`).trim();
 };
 
 export default class TripEventsContainer {

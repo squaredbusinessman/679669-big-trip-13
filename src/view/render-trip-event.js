@@ -31,7 +31,6 @@ export const renderOffers = (offers) => {
            </section>`);
 };
 
-
 const renderTripEventTemplate = (event) => {
   const {eventType, eventDestination, eventOffers, price, action, startTime, endTime, timeDiff} = event;
 

@@ -40,13 +40,6 @@ export const getDateDiffer = (startDate, endDate) => {
   return endDate - startDate;
 };
 
-export const renderDestinationOptions = (destinations) => {
-  return destinations.map((destination) => {
-    return `<option value="${destination}"></option>`;
-  })
-    .join(`\n`);
-};
-
 export const getRandomOffers = (offers) => {
   const offersCount = getRandomInteger(1, 5);
   const randomOffers = [];

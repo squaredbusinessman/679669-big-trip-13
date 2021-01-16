@@ -1,7 +1,7 @@
 import {createElement} from "../utils";
 
 const renderTripDaysContainer = () => {
-  return `<ul class="trip-days"></ul>`;
+  return (`<ul class="trip-days"></ul>`).trim();
 };
 
 export default class TripDaysContainer {

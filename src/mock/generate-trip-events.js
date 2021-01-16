@@ -18,13 +18,15 @@ export const getTripEventData = () => {
     let counter = 1;
     return counter++;
   };
+  const photos = generateRandomPhoto();
+  const hasOffers = Math.random() > 0.5;
 
   return {
     eventType: event,
     eventDestination: getRandomItemArr(eventDestinations),
-    eventOffers: Math.random() > 0.5 ? getRandomOffers(offers) : ``,
+    eventOffers: hasOffers ? getRandomOffers(offers) : null,
     destinationDescription: generateRandomDescription(),
-    destinationPhoto: generateRandomPhoto(),
+    destinationPhoto: photos,
     startTime: startDate,
     parsedStartDate: parseDate(startDate),
     endTime: endDate,

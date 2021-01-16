@@ -37,10 +37,10 @@ export const renderEventsInDays = (tripEvents, daysContainer) => {
     const notSameDate = parsedStartDate !== tripDaysObjects[daysContainerCount].date;
 
     if (!document.querySelector(`.day`)) {
-      renderElement(daysContainer, new TripDay(tripDaysObjects[daysContainerCount]), RenderPositions.BEFOREEND);
+      renderElement(daysContainer, new TripDay(tripDaysObjects[daysContainerCount]), `append`);
 
       const dayWrapper = document.querySelector(`.day:last-child`);
-      renderElement(dayWrapper, new TripEventsContainer().getElement(), RenderPositions.BEFOREEND);
+      renderElement(dayWrapper, new TripEventsContainer().getElement(), `append`);
     }
 
     if (notSameDate) {
@@ -48,13 +48,13 @@ export const renderEventsInDays = (tripEvents, daysContainer) => {
         daysContainerCount++;
       }
 
-      renderElement(daysContainer, new TripDay(tripDaysObjects[daysContainerCount]).getElement(), RenderPositions.BEFOREEND);
+      renderElement(daysContainer, new TripDay(tripDaysObjects[daysContainerCount]).getElement(), `append`);
       const dayWrapper = document.querySelector(`.day:last-child`);
       renderElement(dayWrapper, new TripEventsContainer().getElement());
     }
 
     const tripEventContainer = document.querySelector(`.day:last-child .trip-events__list`);
 
-    renderElement(tripEventContainer, new RenderTripEvent(tripEvent), RenderPositions.BEFOREEND);
+    renderElement(tripEventContainer, new RenderTripEvent(tripEvent), `append`);
   });
 };

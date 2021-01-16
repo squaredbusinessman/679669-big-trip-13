@@ -54,8 +54,8 @@ const renderPhotos = (photos) => {
   }).join(`\n`);
 };
 
-const createEventForm = (event, id) => {
-  const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime} = event;
+const createEventForm = (events, id) => {
+  const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime} = events;
 
   const eventTypesList = renderTypesList(eventTypes.slice(0, 7));
   const activitiesTypesList = renderTypesList(eventTypes).slice(7, 10);
@@ -132,13 +132,13 @@ const createEventForm = (event, id) => {
 };
 
 export default class RenderEventForm {
-  constructor(event, id) {
-    this._event = event;
+  constructor(events, id) {
+    this._events = events;
     this._id = id;
   }
 
   getTemplate() {
-    return createEventForm(this._event, this._id);
+    return createEventForm(this._events, this._id);
   }
 
   getElement() {

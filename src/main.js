@@ -6,47 +6,52 @@ import HeaderNavMenuView from "./view/header-nav-menu";
 import HeaderFiltersView from "./view/header-filters";
 import TripSortingView from "./view/trip-sorting";
 import EventFormView from "./view/render-event-form";
+import TripEventsContainerView from "./view/trip-events-container";
 import TripInfoContainerView from "./view/trip-info-container";
 import TripInfoRouteView from "./view/trip-info-route";
 import TripEventView from "./view/render-trip-event";
-import {renderTemplate, renderElement} from "./utils";
-import {RenderPositions} from "./const";
+import {renderElement} from "./utils";
 
-const RENDER_EVENTS_COUNT = 15;
+const RENDER_EVENTS_COUNT = 5;
 const events = generateEvents(RENDER_EVENTS_COUNT);
+
 // шапка
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const tripEventsElement = document.querySelector(`.trip-events`);
+
+
 // const displayDaysContainer = tripEventsElement.querySelector(`.trip-days`);
 
-renderTemplate(tripMainElement, new HeaderContainerView().getElement(), RenderPositions.AFTERBEGIN);
+renderElement(tripMainElement, new HeaderContainerView().getElement());
 
 
 const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
 const [tripControlsFirstHeaderElement, tripControlsSecondHeaderElement] = tripControlsElement.querySelectorAll(`h2`);
-// eslint-disable-next-line no-debugger
-debugger;
-renderTemplate(tripMainElement, new TripInfoContainerView().getElement());
+
+renderElement(tripMainElement, new TripInfoContainerView().getElement(), `prepend`);
 const tripInfoContainer = tripMainElement.querySelector(`.trip-info`);
-renderTemplate(tripInfoContainer, new TripInfoRouteView(events).getElement());
-renderTemplate(tripInfoContainer, new HeaderTripCostView(events).getElement());
-renderTemplate(tripControlsFirstHeaderElement, new HeaderNavMenuView().getElement(), RenderPositions.AFTEREND);
-renderTemplate(tripControlsSecondHeaderElement, new HeaderFiltersView().getElement(), RenderPositions.AFTEREND);
+
+renderElement(tripInfoContainer, new TripInfoRouteView(events).getElement());
+renderElement(tripInfoContainer, new HeaderTripCostView(events).getElement());
+
+
+renderElement(tripControlsFirstHeaderElement, new HeaderNavMenuView().getElement(), `insertAfter`);
+renderElement(tripControlsSecondHeaderElement, new HeaderFiltersView().getElement(), `insertAfter`);
 
 // сортировка
 
 renderElement(tripEventsElement, new TripSortingView().getElement());
 renderElement(tripEventsElement, new TripDaysContainerView().getElement());
+renderElement(tripMainElement, new TripEventsContainerView().getElement(), `insertBefore`);
 
 // форма
+/* events.forEach((event) => {
+  renderElement(tripEventsElement, new EventFormView(event, event.counter).getElement());
+});*/
 
-renderTemplate(tripEventsElement, new EventFormView().getElement(), RenderPositions.BEFOREEND);
+// Создание моков
 
-const tripEventsContainerElement = document.querySelector(`.trip-events__list`);
-
-events.forEach(() => {
-  renderTemplate(tripEventsContainerElement, new TripEventView(events).getElement(), RenderPositions.BEFOREEND);
+events.forEach((event) => {
+  renderElement(tripEventsElement, new TripEventView(event).getElement());
 });
-
-// листнеры

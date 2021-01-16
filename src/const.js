@@ -1,10 +1,3 @@
-export const RenderPositions = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREBEGIN: `beforebegin`,
-  AFTEREND: `afterend`,
-  BEFOREEND: `beforeend`,
-};
-
 export const MONTHS = [`Jan`, `Feb`, `Mar`, `Apr`, `May`, `Jun`, `Jul`, `Aug`, `Sep`, `Oct`, `Nov`, `Dec`];
 
 export const MONTH_DAYS = {

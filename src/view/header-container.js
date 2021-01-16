@@ -1,7 +1,7 @@
 import {createElement} from "../utils";
 
 const renderHeaderContainer = () => {
-  return `<section class="trip-main__trip-info"></section>`;
+  return (`<section class="trip-main__trip-info"></section>`).trim();
 };
 
 export default class HeaderContainer {

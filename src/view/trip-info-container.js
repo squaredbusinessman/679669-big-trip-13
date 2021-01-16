@@ -1,7 +1,7 @@
 import {createElement} from "../utils";
 
 const createTripInfoContainerTemplate = () => {
-  return `<section class="trip-main__trip-info  trip-info"></section>`;
+  return (`<section class="trip-main__trip-info  trip-info"></section>`).trim();
 };
 
 export default class TripInfoContainer {
