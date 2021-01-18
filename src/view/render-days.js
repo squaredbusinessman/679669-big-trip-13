@@ -4,7 +4,6 @@ import TripDay from "./trip-day";
 import RenderTripEvent from "./render-trip-event";
 import RenderEventForm from "./render-event-form";
 import {getTripDaysWithDates} from "./get-days-and-dates";
-import {RenderPositions} from "../const";
 
 export const addEventToList = (eventListElement, event) => {
   const tripEvent = new RenderTripEvent(event);

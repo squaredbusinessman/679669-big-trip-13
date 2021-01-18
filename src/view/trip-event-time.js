@@ -1,4 +1,4 @@
-// import {timeConvertToMs} from "../const";
+import {timeConvertToMs} from "../const";
 
 export const getTimeDiff = (start, end) => {
   const diffInMs = end - start;

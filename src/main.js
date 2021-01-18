@@ -5,7 +5,6 @@ import HeaderTripCostView from "./view/header-trip-cost";
 import HeaderNavMenuView from "./view/header-nav-menu";
 import HeaderFiltersView from "./view/header-filters";
 import TripSortingView from "./view/trip-sorting";
-import EventFormView from "./view/render-event-form";
 import TripEventsContainerView from "./view/trip-events-container";
 import TripInfoContainerView from "./view/trip-info-container";
 import TripInfoRouteView from "./view/trip-info-route";
