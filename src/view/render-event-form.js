@@ -58,7 +58,7 @@ const createEventForm = (events, id) => {
   const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime} = events;
 
   const eventTypesList = renderTypesList(eventTypes.slice(0, 7));
-  const activitiesTypesList = renderTypesList(eventTypes).slice(7, 10);
+  const activitiesTypesList = renderTypesList(eventTypes.slice(7, 10));
   const eventOptions = renderOptions(eventDestinations);
   const eventPhotos = renderPhotos(destinationPhoto);
   const startDate = getEventTimeFormat(startTime);
@@ -69,20 +69,20 @@ const createEventForm = (events, id) => {
     <div class="event__type-wrapper">
       <label class="event__type  event__type-btn" for="event-type-toggle-${id}">
         <span class="visually-hidden">Choose event type</span>
-        <img class="event__type-icon" width="17" height="17" src="img/icons/${eventType.toLowerCase()}" alt="Event ${eventType.toLowerCase()} icon">
+        <img class="event__type-icon" width="17" height="17" src="img/icons/${eventType.toLowerCase()}.png" alt="Event ${eventType.toLowerCase()} icon">
       </label>
       <input class="event__type-toggle  visually-hidden" id="event-type-toggle-${id}" type="checkbox">
       <div class="event__type-list">
         <fieldset class="event__type-group">
           <legend class="visually-hidden">Transfer</legend>
           <div class="event__type-item">
-            ${eventTypesList};
+            ${eventTypesList}
           </div>
         </fieldset>
         <fieldset class="event__type-group">
           <legend class="visually-hidden">Activity</legend>
           <div class="event__type-item">
-            ${activitiesTypesList};
+            ${activitiesTypesList}
           </div>
         </fieldset>
       </div>
@@ -103,10 +103,10 @@ const createEventForm = (events, id) => {
       </label>
       <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${startDate}">
       &mdash;
-      <label class="visually-hidden" for="event-end-time-1">
+      <label class="visually-hidden" for="event-end-time-${id}">
         To
       </label>
-      <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 00:00">
+      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="18/03/19 00:00">
     </div>
     <div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-${id}">

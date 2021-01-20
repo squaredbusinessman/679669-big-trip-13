@@ -1,6 +1,5 @@
 import {generateEvents} from "./mock/generate-trip-events";
 import TripDaysContainerView from "./view/trip-days-container";
-import HeaderContainerView from "./view/header-container";
 import HeaderTripCostView from "./view/header-trip-cost";
 import HeaderNavMenuView from "./view/header-nav-menu";
 import HeaderFiltersView from "./view/header-filters";
@@ -8,21 +7,17 @@ import TripSortingView from "./view/trip-sorting";
 import TripEventsContainerView from "./view/trip-events-container";
 import TripInfoContainerView from "./view/trip-info-container";
 import TripInfoRouteView from "./view/trip-info-route";
+import RenderEventFormView from "./view/render-event-form";
 import TripEventView from "./view/render-trip-event";
-import {renderElement} from "./utils";
+import {getRandomInteger, renderElement} from "./utils";
 
-const RENDER_EVENTS_COUNT = 5;
+const RENDER_EVENTS_COUNT = 4;
 const events = generateEvents(RENDER_EVENTS_COUNT);
 
 // шапка
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const tripEventsElement = document.querySelector(`.trip-events`);
-
-
-// const displayDaysContainer = tripEventsElement.querySelector(`.trip-days`);
-
-renderElement(tripMainElement, new HeaderContainerView().getElement());
 
 
 const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
@@ -42,15 +37,18 @@ renderElement(tripControlsSecondHeaderElement, new HeaderFiltersView().getElemen
 
 renderElement(tripEventsElement, new TripSortingView().getElement());
 renderElement(tripEventsElement, new TripDaysContainerView().getElement());
-renderElement(tripMainElement, new TripEventsContainerView().getElement(), `insertBefore`);
+
+const tripSortElement = tripEventsElement.querySelector(`.trip-sort`);
+
+renderElement(tripSortElement, new TripEventsContainerView().getElement(), `insertAfter`);
+
+const eventsListElement = tripEventsElement.querySelector(`.trip-events__list`);
 
 // форма
-/* events.forEach((event) => {
-  renderElement(tripEventsElement, new EventFormView(event, event.counter).getElement());
-});*/
+renderElement(eventsListElement, new RenderEventFormView(events[getRandomInteger(0, events.length)], events.counter).getElement(),`insertBefore`);
 
 // Создание моков
 
 events.forEach((event) => {
-  renderElement(tripEventsElement, new TripEventView(event).getElement());
+  renderElement(eventsListElement, new TripEventView(event).getElement(),);
 });

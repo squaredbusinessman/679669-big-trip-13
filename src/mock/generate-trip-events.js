@@ -2,13 +2,13 @@ import {getRandomItemArr, getRandomInteger} from "../utils";
 import {
   getRandomStartDate,
   getEndDate,
-  getDateDiffer,
   getRandomOffers,
   generateRandomDescription,
   generateRandomPhoto,
   parseDate,
 } from "./mock-utils";
 import {eventDestinations, eventTypeActionsMap, eventTypes, offers} from "./trip-events-mocks";
+import {getTimeDiff} from "../view/trip-event-time";
 
 export const getTripEventData = () => {
   const event = getRandomItemArr(eventTypes);
@@ -20,6 +20,7 @@ export const getTripEventData = () => {
   };
   const photos = generateRandomPhoto();
   const hasOffers = Math.random() > 0.5;
+  const differenceDate = getTimeDiff(startDate, endDate);
 
   return {
     eventType: event,
@@ -30,7 +31,7 @@ export const getTripEventData = () => {
     startTime: startDate,
     parsedStartDate: parseDate(startDate),
     endTime: endDate,
-    timeDiff: getDateDiffer(startDate, endDate),
+    timeDiff: differenceDate,
     action: eventTypeActionsMap[event],
     isFavorite: Boolean(getRandomInteger(0, 1)),
     price: getRandomInteger(10, 1000),
