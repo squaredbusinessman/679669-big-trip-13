@@ -15,7 +15,7 @@ export const MONTH_DAYS = {
   '11': 31
 };
 
-export const timeConvertToMs = {
+export const TIME_TO_MS = {
   MINUTE: 60000,
   HOUR: 360000,
   DAY: 86400000,

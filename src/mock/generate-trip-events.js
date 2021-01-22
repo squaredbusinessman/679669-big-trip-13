@@ -9,33 +9,30 @@ import {
 } from "./mock-utils";
 import {eventDestinations, eventTypeActionsMap, eventTypes, offers} from "./trip-events-mocks";
 import {getTimeDiff} from "../view/trip-event-time";
+import {nanoid} from "nanoid";
 
 export const getTripEventData = () => {
-  const event = getRandomItemArr(eventTypes);
-  const startDate = new Date(getRandomStartDate());
-  const endDate = getEndDate(startDate);
-  const incCounter = () => {
-    let counter = 1;
-    return counter++;
-  };
-  const photos = generateRandomPhoto();
-  const hasOffers = Math.random() > 0.5;
-  const differenceDate = getTimeDiff(startDate, endDate);
+  const EVENT = getRandomItemArr(eventTypes);
+  const START_DATE = new Date(getRandomStartDate());
+  const END_DATE = getEndDate(START_DATE);
+  const PHOTOS = generateRandomPhoto();
+  const HAS_OFFERS = Math.random() > 0.5;
+  const DATE_DIFF = getTimeDiff(START_DATE, END_DATE);
 
   return {
-    eventType: event,
+    eventType: EVENT,
     eventDestination: getRandomItemArr(eventDestinations),
-    eventOffers: hasOffers ? getRandomOffers(offers) : null,
+    eventOffers: HAS_OFFERS ? getRandomOffers(offers) : null,
     destinationDescription: generateRandomDescription(),
-    destinationPhoto: photos,
-    startTime: startDate,
-    parsedStartDate: parseDate(startDate),
-    endTime: endDate,
-    timeDiff: differenceDate,
-    action: eventTypeActionsMap[event],
+    destinationPhoto: PHOTOS,
+    startTime: START_DATE,
+    parsedStartDate: parseDate(START_DATE),
+    endTime: END_DATE,
+    timeDiff: DATE_DIFF,
+    action: eventTypeActionsMap[EVENT],
     isFavorite: Boolean(getRandomInteger(0, 1)),
     price: getRandomInteger(10, 1000),
-    counter: incCounter(),
+    id: nanoid(),
   };
 };
 
