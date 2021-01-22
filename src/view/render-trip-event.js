@@ -34,7 +34,7 @@ const renderTripEventTemplate = (event) => {
               <div class="event">
                 <time class="event__date" datetime="${startTime.toISOString()}">${MONTHS[startTime.getMonth() - 1]} ${startTime.getDate()}</time>
                 <div class="event__type">
-                  <img class="event__type-icon" width="42" height="42" src="img/icons/${eventType}.png" alt="Event ${eventType} icon">
+                  <img class="event__type-icon" width="42" height="42" src="img/icons/${eventType.toLowerCase()}.png" alt="Event ${eventType} icon">
                 </div>
                 <h3 class="event__title">${eventType} ${action} ${eventDestination}</h3>
                 <div class="event__schedule">
