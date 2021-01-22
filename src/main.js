@@ -18,7 +18,7 @@ const events = generateEvents(RENDER_EVENTS_COUNT);
 export const addEventToList = (eventListElement, event) => {
   const tripEvent = new TripEventView(event);
   const eventSwitchButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
-  const tripForm = new RenderEventFormView(event, event.counter);
+  const tripForm = new RenderEventFormView(event, event.id);
   const eventEditForm = tripForm.getElement();
 
   const eventSwitchButtonHandler = () => {
