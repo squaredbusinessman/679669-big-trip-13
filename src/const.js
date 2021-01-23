@@ -20,3 +20,7 @@ export const TIME_TO_MS = {
   HOUR: 360000,
   DAY: 86400000,
 };
+
+export const KEY_CODE = {
+  ESC: `escape`,
+};

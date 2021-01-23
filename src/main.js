@@ -9,29 +9,44 @@ import TripInfoRouteView from "./view/trip-info-route";
 import RenderEventFormView from "./view/render-event-form";
 import TripEventView from "./view/render-trip-event";
 import {renderElement} from "./utils";
+import {KEY_CODE} from "./const";
 
 const RENDER_EVENTS_COUNT = 4;
 const events = generateEvents(RENDER_EVENTS_COUNT);
 
-// Обработчики события смены формы на список и наоборот
+// Обработчик события открытия/закрытия формы редактирования
 
 export const addEventToList = (eventListElement, event) => {
   const tripEvent = new TripEventView(event);
-  const eventSwitchButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
+  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
   const tripForm = new RenderEventFormView(event, event.id);
   const eventEditForm = tripForm.getElement();
 
-  const eventSwitchButtonHandler = () => {
+  const escKeyDownButtonHandler = (evt) => {
+    if (evt.key === KEY_CODE.ESC) {
+      eventToFormReplaceHandler();
+      document.removeEventListener(`keydown`, escKeyDownButtonHandler);
+    }
+  };
+
+  const eventToFormReplaceHandler = () => {
     eventListElement.replaceChild(tripForm.getElement(), tripEvent.getElement());
   };
 
-  const formSwitchSubmitHandler = (evt) => {
+  const formToEventReplaceHandler = (evt) => {
     evt.preventDefault();
     eventListElement.replaceChild(tripEvent.getElement(), tripForm.getElement());
   };
 
-  eventSwitchButton.addEventListener(`click`, eventSwitchButtonHandler);
-  eventEditForm.addEventListener(`submit`, formSwitchSubmitHandler);
+  eventEditButton.addEventListener(`click`, () => {
+    eventToFormReplaceHandler()
+    document.addEventListener(`keydown`, escKeyDownButtonHandler);
+  });
+
+  eventEditForm.addEventListener(`submit`, () => {
+    formToEventReplaceHandler();
+    document.removeEventListener(`keydown`, escKeyDownButtonHandler);
+  });
 
   renderElement(eventListElement, tripEvent.getElement());
 };
