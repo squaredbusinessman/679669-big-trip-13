@@ -65,12 +65,6 @@ renderElement(tripSortElement, new TripEventsContainerView().getElement(), `inse
 
 const eventsListElement = tripEventsElement.querySelector(`.trip-events__list`);
 
-// форма
-// renderElement(eventsListElement, new RenderEventFormView(events[getRandomInteger(0, events.length)], events.counter).getElement(),`insertBefore`);
-
-// Создание моков
-
 events.forEach((event) => {
   addEventToList(eventsListElement, event);
-// renderElement(eventsListElement, new TripEventView(event).getElement());
 });

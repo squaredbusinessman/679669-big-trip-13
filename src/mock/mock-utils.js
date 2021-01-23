@@ -23,13 +23,13 @@ export const generateRandomPhoto = () => {
 };
 
 export const getRandomStartDate = () => {
-  const YEAR = getRandomInteger(2020, 2022);
-  const MONTH = getRandomInteger(1, 12);
-  const DAY = getRandomInteger(1, 31);
-  const HOUR = getRandomInteger(0, 23);
-  const MINUTES = getRandomInteger(0, 59);
+  const year = getRandomInteger(2020, 2022);
+  const month = getRandomInteger(1, 12);
+  const day = getRandomInteger(1, 31);
+  const hour = getRandomInteger(0, 23);
+  const minutes = getRandomInteger(0, 59);
 
-  return new Date(YEAR, MONTH, DAY, HOUR, MINUTES);
+  return new Date(year, month, day, hour, minutes);
 };
 
 export const getEndDate = (startDate) => {
@@ -37,10 +37,10 @@ export const getEndDate = (startDate) => {
 };
 
 export const getRandomOffers = (offers) => {
-  const OFFERS_COUNT = getRandomInteger(1, 5);
+  const offersCount = getRandomInteger(1, 5);
   const RANDOM_OFFERS = [];
 
-  for (let i = 0; i < OFFERS_COUNT; i++) {
+  for (let i = 0; i < offersCount; i++) {
     const offer = getRandomItemArr(offers);
     if (RANDOM_OFFERS.indexOf(offer) === -1) {
       RANDOM_OFFERS.push(offer);
@@ -51,9 +51,9 @@ export const getRandomOffers = (offers) => {
 };
 
 export const parseDate = (date) => {
-  const RECIEVED_DATE = date.getDate();
-  const RECIEVED_MONTH = date.getMonth();
-  const RECIEVED_YEAR = date.getFullYear();
+  const currentDate = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
 
-  return Date.parse((new Date(RECIEVED_YEAR, RECIEVED_MONTH, RECIEVED_DATE)).toString());
+  return Date.parse((new Date(year, month, currentDate)).toString());
 };

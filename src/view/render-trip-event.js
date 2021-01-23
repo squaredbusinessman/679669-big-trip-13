@@ -3,14 +3,14 @@ import {getEventTimeFormat} from "./trip-event-time";
 import {MONTHS} from "../const";
 
 const renderEventOffers = (offers) => {
-  return offers.map((offer, index) => {
-    const {id, title, price} = offer;
-    const isChecked = Math.random() > 0.5;
+  return offers.map((offer) => {
+    const {title, price} = offer;
     return (
-      `<div class="event__offer-selector">
-<input class="event__offer-checkbox  visually-hidden" id="event-offer-${id}-${index + 1}" type="checkbox" name="event-offer-${id} ${isChecked ? `checked` : ``}">
-<label class="event__offer-label" for="event-offer-${id}-${index + 1}">
-<span class="event__offer-title">${title}</span>&plus;&euro;&nbsp;<span class="event__offer-price">${price}</span></div>`);
+      `<li class="event__offer">
+<span class="event__offer-title">${title}</span>
+&plus;&euro;&nbsp;
+<span class="event__offer-price">${price}</span>
+</li>`);
   })
     .join(`\n`);
 };

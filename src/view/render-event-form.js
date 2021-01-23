@@ -1,6 +1,6 @@
 import {eventTypes, eventDestinations} from "../mock/trip-events-mocks";
-import {getEventTimeFormat} from "./trip-event-time";
 import {createElement} from "../utils";
+import {getDateFormFormat} from "./get-days-and-dates";
 
 const renderEventOffers = (offers) => {
   return offers.map((offer, index) => {
@@ -55,13 +55,14 @@ const renderPhotos = (photos) => {
 };
 
 const createEventForm = (events, id) => {
-  const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime} = events;
+  const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime, endTime} = events;
 
   const eventTypesList = renderTypesList(eventTypes.slice(0, 7));
   const activitiesTypesList = renderTypesList(eventTypes.slice(7, 10));
   const eventOptions = renderOptions(eventDestinations);
   const eventPhotos = renderPhotos(destinationPhoto);
-  const startDate = getEventTimeFormat(startTime);
+  const startDate = getDateFormFormat(startTime);
+  const endDate = getDateFormFormat(endTime);
   const offers = eventOffers !== null ? renderOffers(eventOffers) : ``;
 
   return `<form class="trip-events__item  event  event--edit" action="#" method="post">
@@ -106,7 +107,7 @@ const createEventForm = (events, id) => {
       <label class="visually-hidden" for="event-end-time-${id}">
         To
       </label>
-      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="18/03/19 00:00">
+      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${endDate}">
     </div>
     <div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-${id}">

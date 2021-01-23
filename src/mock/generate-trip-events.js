@@ -12,24 +12,24 @@ import {getTimeDiff} from "../view/trip-event-time";
 import {nanoid} from "nanoid";
 
 export const getTripEventData = () => {
-  const EVENT = getRandomItemArr(eventTypes);
-  const START_DATE = new Date(getRandomStartDate());
-  const END_DATE = getEndDate(START_DATE);
-  const PHOTOS = generateRandomPhoto();
-  const HAS_OFFERS = Math.random() > 0.5;
-  const DATE_DIFF = getTimeDiff(START_DATE, END_DATE);
+  const event = getRandomItemArr(eventTypes);
+  const startDate = new Date(getRandomStartDate());
+  const endDate = getEndDate(startDate);
+  const photos = generateRandomPhoto();
+  const hasOffers = Math.random() > 0.5;
+  const dateDiff = getTimeDiff(startDate, endDate);
 
   return {
-    eventType: EVENT,
+    eventType: event,
     eventDestination: getRandomItemArr(eventDestinations),
-    eventOffers: HAS_OFFERS ? getRandomOffers(offers) : null,
+    eventOffers: hasOffers ? getRandomOffers(offers) : null,
     destinationDescription: generateRandomDescription(),
-    destinationPhoto: PHOTOS,
-    startTime: START_DATE,
-    parsedStartDate: parseDate(START_DATE),
-    endTime: END_DATE,
-    timeDiff: DATE_DIFF,
-    action: eventTypeActionsMap[EVENT],
+    destinationPhoto: photos,
+    startTime: startDate,
+    parsedStartDate: parseDate(startDate),
+    endTime: endDate,
+    timeDiff: dateDiff,
+    action: eventTypeActionsMap[event],
     isFavorite: Boolean(getRandomInteger(0, 1)),
     price: getRandomInteger(10, 1000),
     id: nanoid(),
