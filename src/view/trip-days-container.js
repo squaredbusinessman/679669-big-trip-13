@@ -1,23 +1,22 @@
 import {createElement} from "../utils";
 
-const createTripInfoContainerTemplate = () => {
-  return (`<section class="trip-main__trip-info  trip-info"></section>`).trim();
+const renderTripDaysContainer = () => {
+  return (`<ul class="trip-days"></ul>`).trim();
 };
 
-export default class TripInfoContainer {
+export default class TripDaysContainer {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return createTripInfoContainerTemplate();
+    return renderTripDaysContainer();
   }
 
   getElement() {
     if (!this._element) {
       this._element = createElement(this.getTemplate());
     }
-
     return this._element;
   }
 

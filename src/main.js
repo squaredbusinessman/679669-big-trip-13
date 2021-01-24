@@ -1,41 +1,85 @@
-import {generateWaypoints} from "./mock/route-waypoint-data-mock";
-import {createTripInfoContainerTemplate} from "./view/trip-info-container";
-import {createTripInfoRouteTemplate} from "./view/trip-info-route";
-import {createTripCostTemplate} from "./view/trip-cost";
-import {createNavMenuTemplate} from "./view/nav-menu";
-import {createFilterTemplate} from "./view/event-tences-filter";
-import {createTripSortingTemplate} from "./view/trip-sorting";
-import {createEventForm} from "./view/event-form";
-import {createWaypointTemplate} from "./view/waypoint";
+import {generateEvents} from "./mock/generate-trip-events";
+import HeaderTripCostView from "./view/header-trip-cost";
+import HeaderNavMenuView from "./view/header-nav-menu";
+import HeaderFiltersView from "./view/header-filters";
+import TripSortingView from "./view/trip-sorting";
+import TripEventsContainerView from "./view/trip-events-container";
+import TripInfoContainerView from "./view/trip-info-container";
+import TripInfoRouteView from "./view/trip-info-route";
+import RenderEventFormView from "./view/render-event-form";
+import TripEventView from "./view/render-trip-event";
+import {renderElement} from "./utils";
+import {KEY_CODE} from "./const";
 
-const RENDER_EVENTS_COUNT = 20;
+const RENDER_EVENTS_COUNT = 4;
+const events = generateEvents(RENDER_EVENTS_COUNT);
 
-const renderTemplate = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
+// Обработчик события открытия/закрытия формы редактирования
+
+export const addEventToList = (eventListElement, event) => {
+  const tripEvent = new TripEventView(event);
+  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
+  const tripForm = new RenderEventFormView(event, event.id);
+  const eventEditForm = tripForm.getElement();
+
+  const escKeyDownButtonHandler = (evt) => {
+    if (evt.key === KEY_CODE.ESC) {
+      eventToFormReplaceHandler();
+      document.removeEventListener(`keydown`, escKeyDownButtonHandler);
+    }
+  };
+
+  const eventToFormReplaceHandler = () => {
+    eventListElement.replaceChild(tripForm.getElement(), tripEvent.getElement());
+  };
+
+  const formToEventReplaceHandler = (evt) => {
+    evt.preventDefault();
+    eventListElement.replaceChild(tripEvent.getElement(), tripForm.getElement());
+  };
+
+  eventEditButton.addEventListener(`click`, () => {
+    eventToFormReplaceHandler()
+    document.addEventListener(`keydown`, escKeyDownButtonHandler);
+  });
+
+  eventEditForm.addEventListener(`submit`, () => {
+    formToEventReplaceHandler();
+    document.removeEventListener(`keydown`, escKeyDownButtonHandler);
+  });
+
+  renderElement(eventListElement, tripEvent.getElement());
 };
+
+// шапка
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const tripEventsElement = document.querySelector(`.trip-events`);
 
-renderTemplate(tripMainElement, createTripInfoContainerTemplate(), `afterbegin`);
 
-const tripInfoContainer = tripMainElement.querySelector(`.trip-info`);
 const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
 const [tripControlsFirstHeaderElement, tripControlsSecondHeaderElement] = tripControlsElement.querySelectorAll(`h2`);
 
-renderTemplate(tripInfoContainer, createTripInfoRouteTemplate(), `beforeend`);
-renderTemplate(tripInfoContainer, createTripCostTemplate(), `beforeend`);
-renderTemplate(tripControlsFirstHeaderElement, createNavMenuTemplate(), `afterend`);
-renderTemplate(tripControlsSecondHeaderElement, createFilterTemplate(), `afterend`);
-renderTemplate(tripEventsElement, createTripSortingTemplate(), `beforeend`);
-renderTemplate(tripEventsElement, createEventForm(), `beforeend`);
+renderElement(tripMainElement, new TripInfoContainerView().getElement(), `prepend`);
+const tripInfoContainer = tripMainElement.querySelector(`.trip-info`);
 
-const tripEventsContainerElement = document.querySelector(`.trip-events__list`);
-
-const events = generateWaypoints(RENDER_EVENTS_COUNT);
-
-for (let i = 0; i < events.length; i++) {
-  renderTemplate(tripEventsContainerElement, createWaypointTemplate(events[i]), `beforeend`);
-}
+renderElement(tripInfoContainer, new TripInfoRouteView(events).getElement());
+renderElement(tripInfoContainer, new HeaderTripCostView(events).getElement());
 
 
+renderElement(tripControlsFirstHeaderElement, new HeaderNavMenuView().getElement(), `insertAfter`);
+renderElement(tripControlsSecondHeaderElement, new HeaderFiltersView().getElement(), `insertAfter`);
+
+// сортировка
+
+renderElement(tripEventsElement, new TripSortingView().getElement());
+
+const tripSortElement = tripEventsElement.querySelector(`.trip-sort`);
+
+renderElement(tripSortElement, new TripEventsContainerView().getElement(), `insertAfter`);
+
+const eventsListElement = tripEventsElement.querySelector(`.trip-events__list`);
+
+events.forEach((event) => {
+  addEventToList(eventsListElement, event);
+});
