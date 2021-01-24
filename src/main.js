@@ -17,31 +17,31 @@ const events = generateEvents(RENDER_EVENTS_COUNT);
 // Обработчик события открытия/закрытия формы редактирования
 
 export const addEventToList = (eventListElement, event) => {
-  const tripEvent = new TripEventView(event);
-  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
-  const tripForm = new RenderEventFormView(event, event.id);
-  const eventEditForm = tripForm.getElement();
-
-  const escKeyDownButtonHandler = (evt) => {
-    if (evt.key === KEY_CODE.ESC) {
-      eventToFormReplaceHandler();
-      document.removeEventListener(`keydown`, escKeyDownButtonHandler);
-    }
-  };
-
   const eventToFormReplaceHandler = () => {
     eventListElement.replaceChild(tripForm.getElement(), tripEvent.getElement());
   };
 
-  const formToEventReplaceHandler = (evt) => {
-    evt.preventDefault();
+  const formToEventReplaceHandler = () => {
     eventListElement.replaceChild(tripEvent.getElement(), tripForm.getElement());
   };
 
+  const escKeyDownButtonHandler = (evt) => {
+    if (evt.code === KEY_CODE.ESC) {
+      formToEventReplaceHandler();
+      document.removeEventListener(`keydown`, escKeyDownButtonHandler);
+    }
+  };
+
+  const tripEvent = new TripEventView(event);
+  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
+
   eventEditButton.addEventListener(`click`, () => {
-    eventToFormReplaceHandler()
+    eventToFormReplaceHandler();
     document.addEventListener(`keydown`, escKeyDownButtonHandler);
   });
+
+  const tripForm = new RenderEventFormView(event, event.id);
+  const eventEditForm = tripForm.getElement();
 
   eventEditForm.addEventListener(`submit`, () => {
     formToEventReplaceHandler();

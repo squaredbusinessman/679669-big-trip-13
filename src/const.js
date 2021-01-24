@@ -22,5 +22,5 @@ export const TIME_TO_MS = {
 };
 
 export const KEY_CODE = {
-  ESC: `escape`,
+  ESC: `Escape`,
 };

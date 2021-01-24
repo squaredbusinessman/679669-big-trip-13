@@ -23,7 +23,7 @@ export const generateRandomPhoto = () => {
 };
 
 export const getRandomStartDate = () => {
-  const year = getRandomInteger(2020, 2022);
+  const year = getRandomInteger(2021, 2022);
   const month = getRandomInteger(1, 12);
   const day = getRandomInteger(1, 31);
   const hour = getRandomInteger(0, 23);
