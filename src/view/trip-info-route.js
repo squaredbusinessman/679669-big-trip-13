@@ -33,7 +33,7 @@ const renderTripRoute = (eventsList) => {
 
 export default class TripInfoRoute {
   constructor(eventsList) {
-    this._element = null;
+    this._element = ``;
     this._eventsList = eventsList;
   }
 
@@ -42,7 +42,7 @@ export default class TripInfoRoute {
   }
 
   getElement() {
-    if (!this._element) {
+    if (!this._element && this._eventsList[0]) {
       this._element = createElement(this.getTemplate());
     }
 
@@ -50,6 +50,6 @@ export default class TripInfoRoute {
   }
 
   removeElement() {
-    this._element = null;
+    this._element = ``;
   }
 }
