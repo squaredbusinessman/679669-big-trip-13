@@ -8,40 +8,41 @@ import TripInfoContainerView from "./view/trip-info-container";
 import TripInfoRouteView from "./view/trip-info-route";
 import RenderEventFormView from "./view/render-event-form";
 import TripEventView from "./view/render-trip-event";
+import {renderAppWithoutEvents} from "./view/render-without-events";
 import {renderElement} from "./utils";
 import {KEY_CODE} from "./const";
 
-const RENDER_EVENTS_COUNT = 4;
+const RENDER_EVENTS_COUNT = 0;
 const events = generateEvents(RENDER_EVENTS_COUNT);
 
 // Обработчик события открытия/закрытия формы редактирования
 
 export const addEventToList = (eventListElement, event) => {
-  const tripEvent = new TripEventView(event);
-  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
-  const tripForm = new RenderEventFormView(event, event.id);
-  const eventEditForm = tripForm.getElement();
-
-  const escKeyDownButtonHandler = (evt) => {
-    if (evt.key === KEY_CODE.ESC) {
-      eventToFormReplaceHandler();
-      document.removeEventListener(`keydown`, escKeyDownButtonHandler);
-    }
-  };
-
   const eventToFormReplaceHandler = () => {
     eventListElement.replaceChild(tripForm.getElement(), tripEvent.getElement());
   };
 
-  const formToEventReplaceHandler = (evt) => {
-    evt.preventDefault();
+  const formToEventReplaceHandler = () => {
     eventListElement.replaceChild(tripEvent.getElement(), tripForm.getElement());
   };
 
+  const escKeyDownButtonHandler = (evt) => {
+    if (evt.code === KEY_CODE.ESC) {
+      formToEventReplaceHandler();
+      document.removeEventListener(`keydown`, escKeyDownButtonHandler);
+    }
+  };
+
+  const tripEvent = new TripEventView(event);
+  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
+
   eventEditButton.addEventListener(`click`, () => {
-    eventToFormReplaceHandler()
+    eventToFormReplaceHandler();
     document.addEventListener(`keydown`, escKeyDownButtonHandler);
   });
+
+  const tripForm = new RenderEventFormView(event, event.id);
+  const eventEditForm = tripForm.getElement();
 
   eventEditForm.addEventListener(`submit`, () => {
     formToEventReplaceHandler();
@@ -54,7 +55,7 @@ export const addEventToList = (eventListElement, event) => {
 // шапка
 
 const tripMainElement = document.querySelector(`.trip-main`);
-const tripEventsElement = document.querySelector(`.trip-events`);
+const tripEventsSection = document.querySelector(`.trip-events`);
 
 
 const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
@@ -72,14 +73,16 @@ renderElement(tripControlsSecondHeaderElement, new HeaderFiltersView().getElemen
 
 // сортировка
 
-renderElement(tripEventsElement, new TripSortingView().getElement());
+renderElement(tripEventsSection, new TripSortingView().getElement());
 
-const tripSortElement = tripEventsElement.querySelector(`.trip-sort`);
+const tripSortElement = tripEventsSection.querySelector(`.trip-sort`);
 
 renderElement(tripSortElement, new TripEventsContainerView().getElement(), `insertAfter`);
 
-const eventsListElement = tripEventsElement.querySelector(`.trip-events__list`);
+const eventsListElement = tripEventsSection.querySelector(`.trip-events__list`);
 
 events.forEach((event) => {
   addEventToList(eventsListElement, event);
 });
+
+renderAppWithoutEvents(events, tripEventsSection);
