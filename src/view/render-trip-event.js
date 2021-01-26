@@ -1,6 +1,6 @@
-import {createElement} from "../utils";
 import {getEventTimeFormat} from "./trip-event-time";
 import {MONTHS} from "../const";
+import Abstract from "./abstract";
 
 const renderEventOffers = (offers) => {
   return offers.map((offer) => {
@@ -65,25 +65,13 @@ const renderTripEventTemplate = (event) => {
             </li>`;
 };
 
-export default class RenderTripEvent {
+export default class RenderTripEvent extends Abstract {
   constructor(event) {
-    this._element = null;
-    this._event = event;
+    super();
+    this._tripEvent = event;
   }
 
   getTemplate() {
     return renderTripEventTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
