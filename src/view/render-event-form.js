@@ -133,13 +133,25 @@ const renderEventForm = (events, id) => {
 };
 
 export default class RenderEventForm extends Abstract {
-  constructor(events, id) {
+  constructor(event, id) {
     super();
-    this._events = events;
+    this._event = event;
     this._id = id;
+    this._submitHandler = this._submitHandler.bind(this);
   }
 
   getTemplate() {
-    return renderEventForm(this._events, this._id);
+    return renderEventForm(this._event, this._id);
+  }
+
+  _submitHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.submit();
+  }
+  setSubmitHandler(callback) {
+    this._callback.submit = callback;
+
+    this.getElement().addEventListener(`submit`, this._submitHandler);
   }
 }

@@ -34,17 +34,15 @@ const addEventToList = (eventListElement, event) => {
   };
 
   const tripEvent = new TripEventView(event);
-  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
 
-  eventEditButton.addEventListener(`click`, () => {
+  tripEvent.setClickHandler(() => {
     eventToFormReplaceHandler();
     document.addEventListener(`keydown`, escKeyDownButtonHandler);
   });
 
   const tripForm = new RenderEventFormView(event, event.id);
-  const eventEditForm = tripForm.getElement();
 
-  eventEditForm.addEventListener(`submit`, () => {
+  tripForm.setSubmitHandler(() => {
     formToEventReplaceHandler();
     document.removeEventListener(`keydown`, escKeyDownButtonHandler);
   });
