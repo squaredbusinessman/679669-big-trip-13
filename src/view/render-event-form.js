@@ -133,9 +133,9 @@ const renderEventForm = (events, id) => {
 };
 
 export default class RenderEventForm extends Abstract {
-  constructor(event, id) {
+  constructor(events, id) {
     super();
-    this._tripEvent = event;
+    this._events = events;
     this._id = id;
   }
 

@@ -68,7 +68,7 @@ const renderTripEventTemplate = (event) => {
 export default class RenderTripEvent extends Abstract {
   constructor(event) {
     super();
-    this._tripEvent = event;
+    this._event = event;
   }
 
   getTemplate() {

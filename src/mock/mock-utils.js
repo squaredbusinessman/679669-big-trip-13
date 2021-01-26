@@ -1,4 +1,4 @@
-import {getRandomItemArr, getRandomInteger} from "../utils";
+import {getRandomInteger, getRandomItemArr} from "../utils/common";
 import {infoDescriptions} from "./trip-events-mocks";
 
 export const generateRandomDescription = () => {
