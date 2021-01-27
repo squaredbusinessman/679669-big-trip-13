@@ -9,21 +9,21 @@ import TripInfoRouteView from "./view/trip-info-route";
 import RenderEventFormView from "./view/render-event-form";
 import TripEventView from "./view/render-trip-event";
 import {renderAppWithoutEvents} from "./view/render-without-events";
-import {renderElement} from "./utils";
+import {render, replace} from "./utils/render";
 import {KEY_CODE} from "./const";
 
-const RENDER_EVENTS_COUNT = 0;
+const RENDER_EVENTS_COUNT = 5;
 const events = generateEvents(RENDER_EVENTS_COUNT);
 
 // Обработчик события открытия/закрытия формы редактирования
 
-export const addEventToList = (eventListElement, event) => {
+const addEventToList = (eventListElement, event) => {
   const eventToFormReplaceHandler = () => {
-    eventListElement.replaceChild(tripForm.getElement(), tripEvent.getElement());
+    replace(tripForm, tripEvent);
   };
 
   const formToEventReplaceHandler = () => {
-    eventListElement.replaceChild(tripEvent.getElement(), tripForm.getElement());
+    replace(tripEvent, tripForm);
   };
 
   const escKeyDownButtonHandler = (evt) => {
@@ -34,22 +34,20 @@ export const addEventToList = (eventListElement, event) => {
   };
 
   const tripEvent = new TripEventView(event);
-  const eventEditButton = tripEvent.getElement().querySelector(`.event__rollup-btn`);
 
-  eventEditButton.addEventListener(`click`, () => {
+  tripEvent.setClickHandler(() => {
     eventToFormReplaceHandler();
     document.addEventListener(`keydown`, escKeyDownButtonHandler);
   });
 
   const tripForm = new RenderEventFormView(event, event.id);
-  const eventEditForm = tripForm.getElement();
 
-  eventEditForm.addEventListener(`submit`, () => {
+  tripForm.setSubmitHandler(() => {
     formToEventReplaceHandler();
     document.removeEventListener(`keydown`, escKeyDownButtonHandler);
   });
 
-  renderElement(eventListElement, tripEvent.getElement());
+  render(eventListElement, tripEvent);
 };
 
 // шапка
@@ -61,26 +59,25 @@ const tripEventsSection = document.querySelector(`.trip-events`);
 const tripControlsElement = tripMainElement.querySelector(`.trip-controls`);
 const [tripControlsFirstHeaderElement, tripControlsSecondHeaderElement] = tripControlsElement.querySelectorAll(`h2`);
 
-renderElement(tripMainElement, new TripInfoContainerView().getElement(), `prepend`);
+render(tripMainElement, new TripInfoContainerView(), `prepend`);
 const tripInfoContainer = tripMainElement.querySelector(`.trip-info`);
 
-renderElement(tripInfoContainer, new TripInfoRouteView(events).getElement());
-renderElement(tripInfoContainer, new HeaderTripCostView(events).getElement());
+render(tripInfoContainer, new TripInfoRouteView(events));
+render(tripInfoContainer, new HeaderTripCostView(events));
 
 
-renderElement(tripControlsFirstHeaderElement, new HeaderNavMenuView().getElement(), `insertAfter`);
-renderElement(tripControlsSecondHeaderElement, new HeaderFiltersView().getElement(), `insertAfter`);
+render(tripControlsFirstHeaderElement, new HeaderNavMenuView(), `insertAfter`);
+render(tripControlsSecondHeaderElement, new HeaderFiltersView(), `insertAfter`);
 
 // сортировка
 
-renderElement(tripEventsSection, new TripSortingView().getElement());
+render(tripEventsSection, new TripSortingView());
 
 const tripSortElement = tripEventsSection.querySelector(`.trip-sort`);
 
-renderElement(tripSortElement, new TripEventsContainerView().getElement(), `insertAfter`);
+render(tripSortElement, new TripEventsContainerView(), `insertAfter`);
 
 const eventsListElement = tripEventsSection.querySelector(`.trip-events__list`);
-
 events.forEach((event) => {
   addEventToList(eventsListElement, event);
 });

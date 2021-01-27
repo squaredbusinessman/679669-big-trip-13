@@ -1,6 +1,6 @@
-import {createElement} from "../utils";
 import {getEventTimeFormat} from "./trip-event-time";
 import {MONTHS} from "../const";
+import Abstract from "./abstract";
 
 const renderEventOffers = (offers) => {
   return offers.map((offer) => {
@@ -65,25 +65,26 @@ const renderTripEventTemplate = (event) => {
             </li>`;
 };
 
-export default class RenderTripEvent {
+export default class RenderTripEvent extends Abstract {
   constructor(event) {
-    this._element = null;
+    super();
     this._event = event;
+    this._clickHandler = this._clickHandler.bind(this);
   }
 
   getTemplate() {
     return renderTripEventTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
+  _clickHandler(evt) {
+    evt.preventDefault();
 
-    return this._element;
+    this._callback.click();
   }
 
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this._callback.click = callback;
+
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickHandler);
   }
 }

@@ -1,6 +1,6 @@
 import {eventTypes, eventDestinations} from "../mock/trip-events-mocks";
-import {createElement} from "../utils";
 import {getDateFormFormat} from "./get-days-and-dates";
+import Abstract from "./abstract";
 
 const renderEventOffers = (offers) => {
   return offers.map((offer, index) => {
@@ -54,7 +54,7 @@ const renderPhotos = (photos) => {
   }).join(`\n`);
 };
 
-const createEventForm = (events, id) => {
+const renderEventForm = (events, id) => {
   const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime, endTime} = events;
 
   const eventTypesList = renderTypesList(eventTypes.slice(0, 7));
@@ -132,25 +132,26 @@ const createEventForm = (events, id) => {
 </form>`;
 };
 
-export default class RenderEventForm {
-  constructor(events, id) {
-    this._events = events;
+export default class RenderEventForm extends Abstract {
+  constructor(event, id) {
+    super();
+    this._event = event;
     this._id = id;
+    this._submitHandler = this._submitHandler.bind(this);
   }
 
   getTemplate() {
-    return createEventForm(this._events, this._id);
+    return renderEventForm(this._event, this._id);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
+  _submitHandler(evt) {
+    evt.preventDefault();
 
-    return this._element;
+    this._callback.submit();
   }
+  setSubmitHandler(callback) {
+    this._callback.submit = callback;
 
-  removeElement() {
-    this._element = null;
+    this.getElement().addEventListener(`submit`, this._submitHandler);
   }
 }

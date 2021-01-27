@@ -1,9 +1,12 @@
 import {MONTHS} from "../const";
-import {sortTripEvents} from "../utils";
-import {createElement} from "../utils";
 import {getEventsDates} from "./get-days-and-dates";
+import Abstract from "./abstract";
 
 const MAXIMUM_CITIES_SHOWN = 3;
+
+const sortTripEvents = (events) => {
+  return events.slice().sort((a, b) => a.startTime - b.startTime);
+};
 
 const getTripRoute = (tripEvents) => {
   const tripEventsSortedByDate = sortTripEvents(tripEvents);
@@ -31,25 +34,13 @@ const renderTripRoute = (eventsList) => {
           </div>`).trim();
 };
 
-export default class TripInfoRoute {
-  constructor(eventsList) {
-    this._element = ``;
-    this._eventsList = eventsList;
+export default class TripInfoRoute extends Abstract {
+  constructor(tripEvents) {
+    super();
+    this._tripEvents = tripEvents;
   }
 
   getTemplate() {
-    return renderTripRoute(this._eventsList);
-  }
-
-  getElement() {
-    if (!this._element && this._eventsList[0]) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = ``;
+    return renderTripRoute(this._tripEvents);
   }
 }

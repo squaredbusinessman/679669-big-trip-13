@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import Abstract from "./abstract";
 
 const createTripSortingTemplate = () => {
   return (`<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
@@ -29,24 +29,8 @@ const createTripSortingTemplate = () => {
           </form>`).trim();
 };
 
-export default class TripSorting {
-  constructor() {
-    this._element = null; // готовим элемент для вставки
-  }
-
+export default class TripSorting extends Abstract {
   getTemplate() {
-    return createTripSortingTemplate(); // получаем шаблон
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate()); // получаем элемент
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+    return createTripSortingTemplate();
   }
 }
