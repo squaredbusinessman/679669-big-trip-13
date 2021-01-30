@@ -65,7 +65,7 @@ const renderTripEventTemplate = (event) => {
             </li>`;
 };
 
-export default class RenderTripEvent extends Abstract {
+export default class TripEvent extends Abstract {
   constructor(event) {
     super();
     this._event = event;

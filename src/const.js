@@ -24,3 +24,9 @@ export const TIME_TO_MS = {
 export const KEY_CODE = {
   ESC: `Escape`,
 };
+
+export const SORT_TYPE = {
+  DAY: `sort-day`,
+  TIME: `sort-time`,
+  PRICE: `sort-price`,
+};

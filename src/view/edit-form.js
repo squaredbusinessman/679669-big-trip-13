@@ -54,7 +54,7 @@ const renderPhotos = (photos) => {
   }).join(`\n`);
 };
 
-const renderEventForm = (events, id) => {
+const editForm = (events, id) => {
   const {eventType, eventDestination, destinationDescription, destinationPhoto, eventOffers, price, action, startTime, endTime} = events;
 
   const eventTypesList = renderTypesList(eventTypes.slice(0, 7));
@@ -141,7 +141,7 @@ export default class RenderEventForm extends Abstract {
   }
 
   getTemplate() {
-    return renderEventForm(this._event, this._id);
+    return editForm(this._event, this._id);
   }
 
   _submitHandler(evt) {

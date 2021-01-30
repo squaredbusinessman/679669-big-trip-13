@@ -35,7 +35,7 @@ export const renderTemplate = (container, template, place) => {
 
 export const createElement = (template) => {
   const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
+  newElement.innerHTML = template.trim();
 
   return newElement.firstChild;
 };

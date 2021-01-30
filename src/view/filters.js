@@ -15,10 +15,10 @@ const renderFilter = () => {
               <label class="trip-filters__filter-label" for="filter-past">Past</label>
             </div>
             <button class="visually-hidden" type="submit">Accept filter</button>
-          </form>`).trim();
+          </form>`);
 };
 
-export default class HeaderFilters extends Abstract {
+export default class Filters extends Abstract {
   getTemplate() {
     return renderFilter();
   }

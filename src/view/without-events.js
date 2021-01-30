@@ -1,7 +1,7 @@
 import Abstract from "./abstract";
 
 const renderListEmptyElement = () => {
-  return (`<p class="trip-events__msg">Click New Event to create your first point</p>`).trim();
+  return (`<p class="trip-events__msg">Click New Event to create your first point</p>`);
 };
 
 export default class WithoutEvents extends Abstract {
