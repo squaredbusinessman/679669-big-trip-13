@@ -1,4 +1,4 @@
-import {MONTHS} from "../const";
+import {MONTHS, SORT_TYPE} from "../const";
 import {getEventsDates} from "./get-days-and-dates";
 import Abstract from "./abstract";
 import {getSortedTripEvents} from "../utils/get-sort";
@@ -6,8 +6,7 @@ import {getSortedTripEvents} from "../utils/get-sort";
 const MAXIMUM_CITIES_SHOWN = 3;
 
 const getTripRoute = (tripEvents) => {
-  // eslint-disable-next-line no-undef
-  const tripEventsSortedByDate = getSortedTripEvents(tripEvents, sortType);
+  const tripEventsSortedByDate = getSortedTripEvents(tripEvents, SORT_TYPE.DAY);
   const tripEventsCities = tripEventsSortedByDate.map((tripEvent) => tripEvent.eventDestination);
   return tripEventsCities.length <= MAXIMUM_CITIES_SHOWN ? tripEventsCities.join(` - `) : tripEventsCities.slice(0, 1) + `— … —` + tripEventsCities.slice(tripEventsCities.length - 1);
 };
