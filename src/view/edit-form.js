@@ -132,7 +132,7 @@ const editForm = (events, id) => {
 </form>`;
 };
 
-export default class RenderEventForm extends Abstract {
+export default class EditForm extends Abstract {
   constructor(event, id) {
     super();
     this._event = event;

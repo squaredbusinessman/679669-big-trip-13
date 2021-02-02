@@ -31,5 +31,5 @@ render(tripInfoContainer, new HeaderTripCostView(events));
 render(tripControlsFirstHeaderElement, new HeaderNavMenuView(), `insertAfter`);
 render(tripControlsSecondHeaderElement, new HeaderFiltersView(), `insertAfter`);
 
-// доска (презентер)
+// доска и эвенты (презентер)
 tripBoardPresenter.init(events);
