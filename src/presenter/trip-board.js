@@ -16,7 +16,6 @@ export default class TripBoard {
   }
 
   init(tripEvents) {
-    debugger;
     this._tripEvents = tripEvents.slice();
 
     if (!this._tripEvents.length) {
@@ -38,7 +37,7 @@ export default class TripBoard {
   }
 
   _renderTripEventsContainer() {
-    render(this._eventSortComponent, this._tripEventsContainerComponent, `InsertAfter`);
+    render(this._eventSortComponent, this._tripEventsContainerComponent);
   }
 
   _renderWithoutEvents() {
@@ -75,7 +74,6 @@ export default class TripBoard {
       formToEventReplaceHandler();
       document.removeEventListener(`keydown`, escKeyDownButtonHandler);
     });
-
     render(this._tripEventsContainerComponent, tripEventComponent);
   }
 
