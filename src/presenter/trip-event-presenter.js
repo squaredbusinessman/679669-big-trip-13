@@ -3,7 +3,7 @@ import EditForm from "../view/edit-form";
 import {render, replace} from "../utils/render";
 import {KEY_CODE} from "../const";
 
-export default class Event {
+export default class TripEventPresenter {
   constructor(eventsListContainer) {
     this._eventsListContainer = eventsListContainer;
 

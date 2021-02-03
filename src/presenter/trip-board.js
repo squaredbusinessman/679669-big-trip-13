@@ -2,6 +2,7 @@ import EventSortView from "../view/event-sort";
 import TripEventsContainerView from "../view/trip-events-container";
 import WithoutEventsView from "../view/without-events";
 import {render} from "../utils/render";
+import TripEventPresenter from "./trip-event-presenter";
 
 export default class TripBoard {
   constructor(tripEventsSection) {
@@ -24,8 +25,8 @@ export default class TripBoard {
 
     this._renderTripEventsContainer();
 
-    this._tripEvents.forEach((event) => {
-      this._renderEvent(event, event.id);
+    this._tripEvents.forEach((tripEvent) => {
+      this._renderEvent(tripEvent, tripEvent.id);
     });
   }
 
@@ -41,9 +42,9 @@ export default class TripBoard {
     render(this._tripEventsSection, this._boardWithoutEventsComponent);
   }
 
-  _renderEvent(event, id) {
-    const eventPresenter = new Event(this._tripEventsContainerComponent);
-    eventPresenter.init(event, id);
+  _renderEvent(tripEvent, id) {
+    const eventPresenter = new TripEventPresenter(this._tripEventsContainerComponent);
+    eventPresenter.init(tripEvent, id);
   }
 
 }
